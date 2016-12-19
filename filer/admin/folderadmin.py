@@ -346,6 +346,10 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         if folder.is_root:
             folder_qs = folder_qs.exclude(**root_exclude_kw)
 
+        if not request.user.is_superuser:
+            file_qs = file_qs.filter(owner=request.user)
+            folder_qs = folder_qs.filter(owner=request.user)
+
         folder_children += folder_qs
         folder_files += file_qs
 
