@@ -251,6 +251,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
 
     # custom views
     def directory_listing(self, request, folder_id=None, viewtype=None):
+        """
         clipboard = tools.get_user_clipboard(request.user)
         if viewtype == 'images_with_missing_data':
             folder = ImagesWithMissingData()
@@ -271,6 +272,8 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             folder = FolderRoot()
         else:
             folder = get_object_or_404(Folder, id=folder_id)
+        """
+        folder = UnsortedImages()
         request.session['filer_last_folder_id'] = folder_id
 
         # Check actions to see if any are available on this changelist
